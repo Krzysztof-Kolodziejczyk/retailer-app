@@ -13,8 +13,8 @@ import java.util.List;
 public class RewardService {
 
     private final static int DOUBLE_POINTS_RATIO = 2;
-    private final static int SINGLE_PINTS_THRESHOLD = 50;
-    private final static int DOUEBLE_PINTS_THRESHOLD = 100;
+    private final static int SINGLE_POINTS_THRESHOLD = 50;
+    private final static int DOUEBLE_POINTS_THRESHOLD = 100;
 
     private final CustomerService customerService;
     private final TransactionRepository transactionRepository;
@@ -41,10 +41,10 @@ public class RewardService {
 
     private Integer calculateReward(Transaction transaction) {
         int price = transaction.getAmount();
-        if (price <= DOUEBLE_PINTS_THRESHOLD) {
-            return Math.max(price - SINGLE_PINTS_THRESHOLD, 0);
+        if (price <= DOUEBLE_POINTS_THRESHOLD) {
+            return Math.max(price - SINGLE_POINTS_THRESHOLD, 0);
         } else {
-            return SINGLE_PINTS_THRESHOLD + (price - DOUEBLE_PINTS_THRESHOLD) * DOUBLE_POINTS_RATIO;
+            return SINGLE_POINTS_THRESHOLD + (price - DOUEBLE_POINTS_THRESHOLD) * DOUBLE_POINTS_RATIO;
         }
     }
 

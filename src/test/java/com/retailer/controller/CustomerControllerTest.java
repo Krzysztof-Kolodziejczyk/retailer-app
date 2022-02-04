@@ -65,6 +65,8 @@ public class CustomerControllerTest extends BaseControllerTest {
                 .content(marshalledCustomer)
                 .contentType(MediaType.APPLICATION_JSON);
 
+        // then
+
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = result.getResponse();
