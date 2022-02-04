@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/transactions")
+@RequestMapping("transaction")
 public class TransactionController {
 
     private final org.slf4j.Logger logger = LoggerFactory.getLogger(CustomerController.class);

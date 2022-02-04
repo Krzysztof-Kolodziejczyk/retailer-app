@@ -6,6 +6,7 @@ import com.retailer.service.CustomerService;
 import com.retailer.service.TransactionService;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/customers")
+@RequestMapping("customer")
 public class CustomerController {
 
     private final org.slf4j.Logger logger = LoggerFactory.getLogger(CustomerController.class);
@@ -30,6 +31,7 @@ public class CustomerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @CrossOrigin
     public Customer createCustomer(@Valid @RequestBody Customer customer) throws InvalidCustomerException {
         logger.info("adding " + customer.toString());
         return customerService.addCustomer(customer);

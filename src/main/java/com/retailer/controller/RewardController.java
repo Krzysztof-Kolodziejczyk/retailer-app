@@ -15,7 +15,7 @@ import javax.validation.constraints.Min;
 import java.time.Month;
 
 @RestController
-@RequestMapping("/reward")
+@RequestMapping("reward")
 @Validated
 public class RewardController {
 

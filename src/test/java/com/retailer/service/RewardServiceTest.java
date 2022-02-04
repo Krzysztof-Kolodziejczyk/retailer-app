@@ -4,23 +4,29 @@ import com.google.common.collect.ImmutableList;
 import com.retailer.exceptions.InvalidCustomerException;
 import com.retailer.model.Customer;
 import com.retailer.model.Transaction;
-import com.retailer.repository.TransactionRepository;
-import org.testng.annotations.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
+@RunWith(SpringJUnit4ClassRunner.class)
 public class RewardServiceTest extends BaseServiceTest {
 
-    TransactionRepository transactionRepository = mock(TransactionRepository.class);
+    private final String FIRST_NAME = "A";
+    private final String LAST_NAME = "B";
+
+    private final Customer customer = new Customer(FIRST_NAME, LAST_NAME);
 
     @Test
-    void testForMultipleTransactionForTheSameMonth() throws InvalidCustomerException {
+    public void testForMultipleTransactionForTheSameMonth() throws InvalidCustomerException {
         //given
         List<Transaction> transactions = (ImmutableList.of(
                 new Transaction(100, customer, LocalDate.of(2021, 6, 1)),
@@ -30,7 +36,14 @@ public class RewardServiceTest extends BaseServiceTest {
         ));
 
         //when
-        when(transactionRepository.findByCustomerAndLocalDateBetween(any(Customer.class), any(LocalDate.class), any(LocalDate.class))).thenReturn(transactions);
+        Mockito.when(customerRepository.findCustomerByFirstNameAndLastName(anyString(), anyString()))
+                .thenReturn(java.util.Optional.of(customer));
+
+        Mockito.when(transactionRepository.findByCustomerAndLocalDateBetween(any(Customer.class), any(LocalDate.class), any(LocalDate.class)))
+                .thenReturn(transactions);
+
+        customerService = new CustomerService(customerRepository);
+
         RewardService rewardService = new RewardService(customerService, transactionRepository);
         Integer result = rewardService.calculateMonthlyReward(FIRST_NAME, LAST_NAME, 2021, 04);
 
@@ -40,7 +53,7 @@ public class RewardServiceTest extends BaseServiceTest {
     }
 
     @Test
-    void testTotalRewardForMultipleTransactions() throws InvalidCustomerException {
+    public void testTotalRewardForMultipleTransactions() throws InvalidCustomerException {
         //given
         List<Transaction> transactions = (ImmutableList.of(
                 new Transaction(200, customer, LocalDate.of(2021, 1, 1)),

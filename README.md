@@ -6,7 +6,7 @@
 * Maven
 
 to run application simply go to main class and press run button. 
-Alternatively use commad'mvn clean install' to build the project,
+Alternatively use commad 'mvn clean install' to build the project,
 go to 'target' directory and run application with 'java -jar retailer-1.0.jar'
 
 application is available here:
