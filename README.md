@@ -4,6 +4,7 @@
 * Spring Boot
 * H2 Database
 * Maven
+* swagger-ui
 
 to run application simply go to main class and press run button. 
 Alternatively use commad 'mvn clean install' to build the project,

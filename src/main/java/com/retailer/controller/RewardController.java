@@ -28,17 +28,17 @@ public class RewardController {
     }
 
     @GetMapping("/{firstName}/{lastName}/monthlyPoints")
-    public int getMonthlyPoints(@PathVariable String firstName,
-                                @PathVariable String lastName,
-                                @RequestParam int year,
-                                @RequestParam @Min(1) @Max(12) int month) throws InvalidCustomerException {
+    public int getTotalPoints(@PathVariable String firstName,
+                              @PathVariable String lastName,
+                              @RequestParam int year,
+                              @RequestParam @Min(1) @Max(12) int month) throws InvalidCustomerException {
         logger.info("getting Reward for " + Month.of(month) + " " + year + " for " + firstName + " " + lastName);
         return rewardService.calculateMonthlyReward(firstName, lastName, year, month);
     }
 
     @GetMapping("/{firstName}/{lastName}/totalPoints")
-    public int getMonthlyPoints(@PathVariable String firstName,
-                                @PathVariable String lastName) throws InvalidCustomerException {
+    public int getTotalPoints(@PathVariable String firstName,
+                              @PathVariable String lastName) throws InvalidCustomerException {
         logger.info("getting total Reward for " + firstName + " " + lastName);
         return rewardService.calculateTotalReward(firstName, lastName);
     }

@@ -28,7 +28,7 @@ public class TransactionControllerTest extends BaseControllerTest {
     MockMvc mockMvc;
 
     @Test
-    public void creatTransactionTest() throws Exception {
+    public void creatTransactionForValidDataExpectStatus201Test() throws Exception {
 
         // given + when
         when(transactionService.addTransaction(Mockito.any(Transaction.class))).thenReturn(mockTransaction1);

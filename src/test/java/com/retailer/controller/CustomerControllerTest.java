@@ -27,7 +27,7 @@ public class CustomerControllerTest extends BaseControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void creatCustomerTest() throws Exception {
+    public void createCustomerForValidRequestExpectStatus201Test() throws Exception {
 
         // given + when
         Mockito.when(customerService.addCustomer(Mockito.any(Customer.class))).thenReturn(mockCustomer1);
@@ -49,7 +49,7 @@ public class CustomerControllerTest extends BaseControllerTest {
     }
 
     @Test
-    public void creatCustomerInvalidRequestTest() throws Exception {
+    public void createCustomerExpectStatus400Test() throws Exception {
 
         // given + when
         Mockito.when(customerService.addCustomer(Mockito.any(Customer.class))).thenReturn(mockCustomer1);
@@ -74,7 +74,7 @@ public class CustomerControllerTest extends BaseControllerTest {
 
 
     @Test
-    public void findAllCustomersTest() throws Exception {
+    public void findAllCustomersExpectNoErrorTest() throws Exception {
 
         Mockito.when(customerService.getAllCustomers())
                 .thenReturn(ImmutableList.of(mockCustomer1, mockCustomer2));

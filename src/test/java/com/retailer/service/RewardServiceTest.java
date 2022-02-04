@@ -26,7 +26,7 @@ public class RewardServiceTest extends BaseServiceTest {
     private final Customer customer = new Customer(FIRST_NAME, LAST_NAME);
 
     @Test
-    public void testForMultipleTransactionForTheSameMonth() throws InvalidCustomerException {
+    public void multipleTransactionForTheSameMonthExpectNoErrosTest() throws InvalidCustomerException {
         //given
         List<Transaction> transactions = (ImmutableList.of(
                 new Transaction(100, customer, LocalDate.of(2021, 6, 1)),
@@ -53,7 +53,7 @@ public class RewardServiceTest extends BaseServiceTest {
     }
 
     @Test
-    public void testTotalRewardForMultipleTransactions() throws InvalidCustomerException {
+    public void totalRewardForMultipleTransactionsExpectNoErrosTest() throws InvalidCustomerException {
         //given
         List<Transaction> transactions = (ImmutableList.of(
                 new Transaction(200, customer, LocalDate.of(2021, 1, 1)),
