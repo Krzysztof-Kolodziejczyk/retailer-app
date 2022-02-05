@@ -45,7 +45,7 @@ public class CustomerControllerTest extends BaseControllerTest {
         MockHttpServletResponse response = result.getResponse();
 
         // then
-        assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
     @Test

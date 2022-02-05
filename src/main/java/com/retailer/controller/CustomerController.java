@@ -6,6 +6,7 @@ import com.retailer.service.CustomerService;
 import com.retailer.service.TransactionService;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,16 +31,14 @@ public class CustomerController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    @CrossOrigin
-    public Customer createCustomer(@Valid @RequestBody Customer customer) throws InvalidCustomerException {
+    public ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer) throws InvalidCustomerException {
         logger.info("adding " + customer.toString());
-        return customerService.addCustomer(customer);
+        return ResponseEntity.ok(customerService.addCustomer(customer));
     }
 
     @GetMapping
-    public List<Customer> findAllCustomers() {
+    public ResponseEntity<List<Customer>> findAllCustomers() {
         logger.info("printing all customers");
-        return customerService.getAllCustomers();
+        return ResponseEntity.ok(customerService.getAllCustomers());
     }
 }

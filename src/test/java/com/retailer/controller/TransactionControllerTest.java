@@ -1,6 +1,6 @@
 package com.retailer.controller;
 
-import com.retailer.model.Transaction;
+import com.retailer.api.request.TransactionRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -31,7 +32,7 @@ public class TransactionControllerTest extends BaseControllerTest {
     public void creatTransactionForValidDataExpectStatus201Test() throws Exception {
 
         // given + when
-        when(transactionService.addTransaction(Mockito.any(Transaction.class))).thenReturn(mockTransaction1);
+        when(transactionService.addTransaction(Mockito.any(TransactionRequest.class))).thenReturn(mockTransaction1);
 
         String marshalledTransaction = "{\n  \"amount\": 100,\n  \"customer\": {\n    \"firstName\": \"A\",\n" +
                 "    \"lastName\": \"B\"\n  },\n  \"localDate\": \"2000-12-12\"\n}";
@@ -47,20 +48,20 @@ public class TransactionControllerTest extends BaseControllerTest {
         MockHttpServletResponse response = result.getResponse();
 
         // then
-        assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
     @Test
     public void updateTransactionIsPresentTest() throws Exception {
 
-        when(transactionService.updateTransaction(Mockito.any(Transaction.class)))
+        when(transactionService.updateTransaction(anyLong(), Mockito.any(TransactionRequest.class)))
                 .thenReturn(mockTransaction1);
 
-        String marshalledToUpdateTransaction = "{\n  \"transactionId\": 1,\n  \"amount\": 100," +
+        String marshalledToUpdateTransaction = "{\n  \"amount\": 100," +
                 "\n  \"customer\": {\n    \"firstName\": \"A\",\n    \"lastName\": \"B\"\n  },\n  \"localDate\": \"2000-12-05\"\n}";
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .put("/transaction")
+                .put("/transaction/" + 1)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(marshalledToUpdateTransaction)
                 .contentType(MediaType.APPLICATION_JSON);
