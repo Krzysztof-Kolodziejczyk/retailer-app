@@ -3,37 +3,28 @@ package com.retailer.api.request;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.retailer.model.Customer;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
+@NoArgsConstructor
+@AllArgsConstructor
 public class TransactionRequest {
 
     @NotNull(message = "price cannot be null")
     @Min(value = 1L, message = "The value must be positive")
     private int amount;
 
-    @ManyToOne
-    @JoinColumn(name = "customerId")
     @NotNull(message = "customer cannot be null")
     private Customer customer;
 
     @NotNull(message = "date cannot be null")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @ApiModelProperty(dataType = "java.sql.Date")
     private Date date;
-
-    public TransactionRequest() {
-    }
-
-    public TransactionRequest(int amount, Customer customer, Date date) {
-        this.amount = amount;
-        this.customer = customer;
-        this.date = date;
-    }
 
     public int getAmount() {
         return amount;

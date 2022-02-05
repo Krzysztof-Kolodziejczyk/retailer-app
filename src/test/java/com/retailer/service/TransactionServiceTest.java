@@ -1,8 +1,8 @@
 package com.retailer.service;
 
+import com.retailer.api.request.TransactionRequest;
 import com.retailer.model.Customer;
 import com.retailer.model.Transaction;
-import com.retailer.api.request.TransactionRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -24,9 +24,9 @@ public class TransactionServiceTest extends BaseServiceTest {
         // given
         Customer customer1 = new Customer("A", "B");
         Customer customer2 = new Customer("C", "D");
-        Transaction transaction = new Transaction(200, customer1, Date.valueOf(LocalDate.of(2021, 12,12)));
+        Transaction transaction = new Transaction(200, customer1, Date.valueOf(LocalDate.of(2021, 12, 12)));
         TransactionRequest transactionRequest = new TransactionRequest(100, customer2, Date.valueOf(LocalDate.of(2000, 10, 10)));
-        Transaction expectedTransaction = new Transaction(100, customer2, Date.valueOf(LocalDate.of(2000,10,10)));
+        Transaction expectedTransaction = new Transaction(100, customer2, Date.valueOf(LocalDate.of(2000, 10, 10)));
 
         TransactionService transactionService = new TransactionService(customerService, transactionRepository);
 

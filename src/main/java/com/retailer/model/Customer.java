@@ -1,6 +1,7 @@
 package com.retailer.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "customer")
+@NoArgsConstructor
 public class Customer {
 
     @Id
@@ -26,9 +28,6 @@ public class Customer {
     @Column(nullable = false)
     @NotNull(message = "customer last name cannot be null")
     private String lastName;
-
-    public Customer() {
-    }
 
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;

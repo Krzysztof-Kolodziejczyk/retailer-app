@@ -33,15 +33,15 @@ public class CustomerService {
     }
 
     @Transactional
-    public Customer addCustomer(Customer customer) throws InvalidCustomerException{
-        if(customerRepository.findCustomerByFirstNameAndLastName(customer.getFirstName(), customer.getLastName()).isPresent()){
+    public Customer addCustomer(Customer customer) throws InvalidCustomerException {
+        if (customerRepository.findCustomerByFirstNameAndLastName(customer.getFirstName(), customer.getLastName()).isPresent()) {
             throw new InvalidCustomerException(customer.toString() + " already exists");
         }
         logger.info(customer.toString() + "has been saved");
         return customerRepository.save(customer);
     }
 
-    public List<Customer> getAllCustomers(){
+    public List<Customer> getAllCustomers() {
         return Lists.newArrayList(customerRepository.findAll());
     }
 }

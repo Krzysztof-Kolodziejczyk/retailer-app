@@ -2,6 +2,7 @@ package com.retailer.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,10 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.sql.Date;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "transactions")
+@NoArgsConstructor
 public class Transaction {
 
     @Id
@@ -29,12 +30,7 @@ public class Transaction {
     private Customer customer;
 
     @Column(nullable = false)
-    @JsonFormat(pattern="yyyy-MM-dd")
-    @ApiModelProperty(dataType = "java.sql.Date")
     private Date date;
-
-    public Transaction() {
-    }
 
     public Transaction(Integer amount, Customer customer, Date date) {
         this.amount = amount;
