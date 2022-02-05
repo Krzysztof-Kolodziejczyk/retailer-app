@@ -35,7 +35,7 @@ public class TransactionControllerTest extends BaseControllerTest {
         when(transactionService.addTransaction(Mockito.any(TransactionRequest.class))).thenReturn(mockTransaction1);
 
         String marshalledTransaction = "{\n  \"amount\": 100,\n  \"customer\": {\n    \"firstName\": \"A\",\n" +
-                "    \"lastName\": \"B\"\n  },\n  \"localDate\": \"2000-12-12\"\n}";
+                "    \"lastName\": \"B\"\n  },\n  \"date\": \"2000-12-12\"\n}";
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/transaction")
@@ -58,7 +58,7 @@ public class TransactionControllerTest extends BaseControllerTest {
                 .thenReturn(mockTransaction1);
 
         String marshalledToUpdateTransaction = "{\n  \"amount\": 100," +
-                "\n  \"customer\": {\n    \"firstName\": \"A\",\n    \"lastName\": \"B\"\n  },\n  \"localDate\": \"2000-12-05\"\n}";
+                "\n  \"customer\": {\n    \"firstName\": \"A\",\n    \"lastName\": \"B\"\n  },\n  \"date\": \"2000-12-05\"\n}";
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .put("/transaction/" + 1)

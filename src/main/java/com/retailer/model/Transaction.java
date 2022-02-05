@@ -1,5 +1,8 @@
 package com.retailer.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.sql.Date;
 import java.time.LocalDate;
 
 @Entity
@@ -25,15 +29,17 @@ public class Transaction {
     private Customer customer;
 
     @Column(nullable = false)
-    private LocalDate localDate;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @ApiModelProperty(dataType = "java.sql.Date")
+    private Date date;
 
     public Transaction() {
     }
 
-    public Transaction(Integer amount, Customer customer, LocalDate localDate) {
+    public Transaction(Integer amount, Customer customer, Date date) {
         this.amount = amount;
         this.customer = customer;
-        this.localDate = localDate;
+        this.date = date;
     }
 
     public Long getTransactionId() {
@@ -60,12 +66,16 @@ public class Transaction {
         this.customer = customer;
     }
 
-    public LocalDate getLocalDate() {
-        return localDate;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
-    public void setLocalDate(LocalDate localDate) {
-        this.localDate = localDate;
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     @Override
@@ -74,7 +84,7 @@ public class Transaction {
                 "transactionId=" + transactionId +
                 ", amount=" + amount +
                 ", customer=" + customer +
-                ", localDate=" + localDate +
+                ", date=" + date +
                 '}';
     }
 }

@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -25,7 +26,7 @@ public class BaseControllerTest {
 
     protected final Customer mockCustomer1 = new Customer("A", "B");
     protected final Customer mockCustomer2 = new Customer("C", "D");
-    protected final Transaction mockTransaction1 = new Transaction(100, mockCustomer1, LocalDate.of(2000, 12, 12));
+    protected final Transaction mockTransaction1 = new Transaction(100, mockCustomer1, Date.valueOf(LocalDate.of(2000, 12, 12)));
 
 
 }

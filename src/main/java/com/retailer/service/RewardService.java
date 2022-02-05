@@ -6,6 +6,7 @@ import com.retailer.model.Transaction;
 import com.retailer.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class RewardService {
         Customer customer = customerService.findByName(firstName, lastName);
         LocalDate from = LocalDate.of(year, month, 1);
         LocalDate to = from.plusDays(from.lengthOfMonth());
-        return calculateRewardForList(transactionRepository.findByCustomerAndLocalDateBetween(customer, from, to));
+        return calculateRewardForList(transactionRepository.findByCustomerAndDateBetween(customer, Date.valueOf(from), Date.valueOf(to)));
     }
 
     public Integer calculateTotalReward(String firstName, String lastName) throws InvalidCustomerException {

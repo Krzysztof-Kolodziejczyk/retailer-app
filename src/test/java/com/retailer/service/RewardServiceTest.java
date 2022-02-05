@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -29,17 +30,17 @@ public class RewardServiceTest extends BaseServiceTest {
     public void multipleTransactionForTheSameMonthExpectNoErrosTest() throws InvalidCustomerException {
         //given
         List<Transaction> transactions = (ImmutableList.of(
-                new Transaction(100, customer, LocalDate.of(2021, 6, 1)),
-                new Transaction(200, customer, LocalDate.of(2021, 6, 2)),
-                new Transaction(60, customer, LocalDate.of(2021, 6, 5)),
-                new Transaction(30, customer, LocalDate.of(2021, 6, 7))
+                new Transaction(100, customer, Date.valueOf(LocalDate.of(2021, 6, 1))),
+                new Transaction(200, customer, Date.valueOf(LocalDate.of(2021, 6, 2))),
+                new Transaction(60, customer, Date.valueOf(LocalDate.of(2021, 6, 5))),
+                new Transaction(30, customer, Date.valueOf(LocalDate.of(2021, 6, 7)))
         ));
 
         //when
         Mockito.when(customerRepository.findCustomerByFirstNameAndLastName(anyString(), anyString()))
                 .thenReturn(java.util.Optional.of(customer));
 
-        Mockito.when(transactionRepository.findByCustomerAndLocalDateBetween(any(Customer.class), any(LocalDate.class), any(LocalDate.class)))
+        Mockito.when(transactionRepository.findByCustomerAndDateBetween(any(Customer.class), any(Date.class), any(Date.class)))
                 .thenReturn(transactions);
 
         customerService = new CustomerService(customerRepository);
@@ -56,10 +57,10 @@ public class RewardServiceTest extends BaseServiceTest {
     public void totalRewardForMultipleTransactionsExpectNoErrosTest() throws InvalidCustomerException {
         //given
         List<Transaction> transactions = (ImmutableList.of(
-                new Transaction(200, customer, LocalDate.of(2021, 1, 1)),
-                new Transaction(300, customer, LocalDate.of(2022, 2, 2)),
-                new Transaction(80, customer, LocalDate.of(2023, 3, 5)),
-                new Transaction(33, customer, LocalDate.of(2024, 4, 7))
+                new Transaction(200, customer, Date.valueOf(LocalDate.of(2021, 1, 1))),
+                new Transaction(300, customer, Date.valueOf(LocalDate.of(2022, 2, 2))),
+                new Transaction(80, customer, Date.valueOf(LocalDate.of(2023, 3, 5))),
+                new Transaction(33, customer, Date.valueOf(LocalDate.of(2024, 4, 7)))
         ));
 
         //when

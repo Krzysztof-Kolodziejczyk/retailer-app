@@ -35,7 +35,7 @@ public class TransactionService {
         Transaction transaction = new Transaction(
                 request.getAmount(),
                 customerService.findByName(request.getCustomer().getFirstName(), request.getCustomer().getLastName()),
-                request.getLocalDate()
+                request.getDate()
         );
         logger.info(transaction.toString() + "has been saved");
         return transactionRepository.save(transaction);
@@ -48,7 +48,7 @@ public class TransactionService {
             Customer customer = request.getCustomer();
             transaction.get().setCustomer(customerService.findByName(customer.getFirstName(), customer.getLastName()));
             transaction.get().setAmount(request.getAmount());
-            transaction.get().setLocalDate(request.getLocalDate());
+            transaction.get().setDate(request.getDate());
             return transaction.get();
         } else {
             throw new InvalidTransactionException("Could not find Transacion for " + toUpdateTransactionId + " id.");
